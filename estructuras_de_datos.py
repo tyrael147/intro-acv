@@ -987,7 +987,7 @@ imprimir_args(1, 'a', nombre="Juan", edad=25, a=1, b=3)
 # %%
 def validar(*args, **pizza):
     if 'cuenta' in pizza:
-        print(f'Acceso concedido a: {pizza['cuenta']}')
+        print(f'Acceso concedido a: {pizza["cuenta"]}')
     else:
         print("No válido")
 
@@ -1004,22 +1004,6 @@ validar(1, nombre="Juan", edad=25, a=1, b=3, cuenta='Gustavo', tamaño='L')
 # - **Parámetros por Defecto**: Tienen valores predeterminados si no se proporcionan
 # - **Argumentos de Palabra Clave**: Especificados por el nombre del parámetro
 # - **Argumentos de Longitud Variable**: `*args` (tuplas) y `**kwargs` (diccionarios)
-
-# %%
-# Llama a la función imprimir_args() con los argumentos de tu elección y asigna la salida a una variable llamada 'a'
-
-# %%
-# Si es necesario, podemos devolver múltiples salidas, pero puede ser necesario desempaquetarlas al asignarlas a variables
-
-def mi_función(a, b):
-    suma_personalizada = a + b
-    resta = a - b
-    multiplicación = a * b
-    soluciones = [suma_personalizada, resta, multiplicación]
-    return soluciones
-
-
-
 
 # %% [markdown]
 # # Condicionales `If`

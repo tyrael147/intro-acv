@@ -10,8 +10,8 @@
 
 # %%
 # !pip install bw2calc==2.0.dev17 -q # Paquete de brightway
-# !pip install bw2data==4.4.3 -q # Paquete de brightway
-# !pip install bw2io==0.9.dev41 -q # Paquete de brightway
+# !pip install bw2data==4.0.dev42 -q # Paquete de brightway
+# !pip install bw2io==0.9.dev27 -q # Paquete de brightway
 # !pip install polars==0.20.15 -q 
 # !pip install pypardiso -q
 # !pip install scipy==1.12.0 -q
@@ -149,7 +149,7 @@ biosfera = bd.Database('biosphere3')
 
 # %%
 # Ejecuta esta celda multiples veces y veras que siempre tienes respuestas diferentes.
-biosfera.random()
+# biosfera.random()
 
 
 # %% [markdown]
@@ -169,7 +169,7 @@ bd.methods
 # bw2data.methods es un objeto sobre el que se puede iterar
 # Por ejemplo, busquemos un metodo relacionado con el cambio climatico
 for nombre, categoria, indicator in bd.methods:
-    if categoria == 'climate change':
+    if 'acidification' in category:
         print((nombre, categoria, indicator))
 
 # %% [markdown]
