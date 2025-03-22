@@ -1,10 +1,6 @@
 # %% [markdown]
 # # Introducción
 # En esta primera sección introductoria aprenderemos los conceptos básicos de variables y tipos de datos en Python.
-# Para ejecutar este archivo correctamente, asegúrate de instalar las dependencias necesarias ejecutando el siguiente codigo.
-
-# %%
-!pip install brightway25
 
 # %% [markdown]
 #
