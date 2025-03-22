@@ -318,6 +318,7 @@ print(2 * pi * radio )
 
 # %% [markdown]
 # Operadores aritméticos:
+#
 # |Operador |	Nombre      |	Ejemplo|
 # |---------|-------------|---------|
 # |+ 	    |Suma         |	x + y 	|
