@@ -7,8 +7,8 @@
 # Este notebook se ejecutara en una nueva sesion, por lo que necesitamos instalar las dependencias una vez mas.
 
 # !pip install bw2calc==2.0.dev17 -q # Paquete de brightway
-# !pip install bw2data==4.4.3 -q # Paquete de brightway
-# !pip install bw2io==0.9.dev41 -q # Paquete de brightway
+# !pip install bw2data==4.0.dev42 -q # Paquete de brightway
+# !pip install bw2io==0.9.dev27 -q # Paquete de brightway
 # !pip install polars==0.20.15 -q 
 # !pip install pypardiso -q
 # !pip install scipy==1.12.0 -q
@@ -23,8 +23,8 @@
 
 # +
 from google.colab import auth
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
+from pydrive2.auth import GoogleAuth
+from pydrive2.drive import GoogleDrive
 from oauth2client.client import GoogleCredentials
 
 auth.authenticate_user()
@@ -120,11 +120,14 @@ print(seleccionado.as_dict())
 type(seleccionado.exchanges())
 
 # Si deseamos leerlo al estilo de una lista, hay que convertirlo en una lista.
-print(list(seleccionado.exchanges()))
-
+for exchange in seleccionado.exchanges():
+    print(exchange)
+# print(list(seleccionado.exchanges()))
 
 # Si deseamos solo la tecnosfera, usamos la funcion correspondiente
-print(list(seleccionado.technosphere()))
+for exchange in seleccionado.technosphere():
+    print(exchange)
+# print(list(seleccionado.technosphere()))
 
 # La impresion realizada en la celda de arriba nos muestra la informacion necesaria para poder construir las matrices. Sin embargo, brightway nos permite manipular el `exchange` y acceder a su metadata.
 
@@ -133,10 +136,14 @@ exchange = list(seleccionado.technosphere())[1]
 print(exchange.as_dict())
 
 # ## Opciones de busqueda
-# Como podran imaginar, manipular una base de datos con tantas actividades (~21k) es bastante complicado. Podemos utilizar funciones nativas de python (list comprehension) para realizar una busqueda.
+# Como podran imaginar, manipular una base de datos con tantas actividades (~21k) es bastante complicado. Podemos utilizar funciones nativas de python para realizar una busqueda.
 
-truck = [x for x in ei if x['name'] == 'transport, freight, lorry >32 metric ton, EURO5'][0]
-truck
+for x in ei:
+  if x['name'] == 'transport, freight, lorry >32 metric ton, EURO5':
+    print(x)
+
+# truck = [x for x in ei if x['name'] == 'transport, freight, lorry >32 metric ton, EURO5'][0]
+# truck
 
 # Esta manera de buscar es mas 'pythonic'. Sin embargo, tambien puedes usar el buscador de brightway a traves de la funcion `search`.
 
