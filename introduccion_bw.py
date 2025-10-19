@@ -1,7 +1,7 @@
 # %% [markdown]
 # # Introducción a brightway - pt. 1
 #
-# En esta seccion hablaremos de los conceptos fundamentales de brigthway. Es importante aclarar que toda esta informacion esta disponible en linea en la pagina de documentacion: 
+# En esta seccion hablaremos de los conceptos fundamentales de brigthway. Es importante aclarar que toda esta informacion esta disponible en linea en la pagina de documentacion:
 #
 # https://docs.brightway.dev/en/latest/index.html
 
@@ -12,7 +12,7 @@
 # !pip install bw2calc==2.0.dev17 -q # Paquete de brightway
 # !pip install bw2data==4.0.dev42 -q # Paquete de brightway
 # !pip install bw2io==0.9.dev27 -q # Paquete de brightway
-# !pip install polars==0.20.15 -q 
+# !pip install polars==0.20.15 -q
 # !pip install pypardiso -q
 # !pip install scipy==1.12.0 -q
 # !pip install seaborn==0.13.2 -q
@@ -25,7 +25,7 @@
 
 # %% [markdown]
 # ## Configura tu proyecto brightway
-# Debido al gran tamano de las bases de datos utilizadas en ACV, brightway require grabar cierta informacion en disco. 
+# Debido al gran tamano de las bases de datos utilizadas en ACV, brightway require grabar cierta informacion en disco.
 # Por esta razon, cada vez que se crea un proyecto nuevo es necesario configurarlo.
 #
 # El primer paso consiste en importar las dependencias necesarias:
@@ -86,7 +86,7 @@ bd.projects
 # En caso desees eliminar un proyecto, puedes utilizar la funcion `bw2data.projects.delete_dir`
 
 # %%
-# El argumento `delete_dir` es booleano e indica 
+# El argumento `delete_dir` es booleano e indica
 # si tambien se desea eliminar la carpeta que contiene los datos del proyecto.
 bd.projects.delete_project(name='nuevo_proyecto', delete_dir=True)
 
@@ -104,7 +104,7 @@ bd.projects.delete_project(name='nuevo_proyecto', delete_dir=True)
 # %% [markdown]
 # ## Creando una nueva biosfera
 # Brightway esta fuertemente (pero no estrictamente) ligado a los modelos y esquemas utilizados por ecoinvent.
-# Por esto, los metodos de impacto y flujos ambientales (biosfera) son aquellos proporcionados por ecoinvent a traves de su servicio ecoquery. 
+# Por esto, los metodos de impacto y flujos ambientales (biosfera) son aquellos proporcionados por ecoinvent a traves de su servicio ecoquery.
 # Aunque los metodos son desarrollados por grupos de investigacion independientes, ecoinvent los centraliza y modifica a fin de que sean compatibles y listos para conectarse con su base de datos.
 
 # %% [markdown]
@@ -135,7 +135,7 @@ bd.databases
 # La biosfera esta ahora almacenada en una base de datos. En la jerga de brightway, una base de datos no es mas que un objeto que permite acceder a los nodos contenidos en este. Podemos ver las bases de datos contenidas en este proyecto de la siguiente manera:
 
 # %%
-# La base de datos 'biosphere3' tiene ese nombre por defecto. 
+# La base de datos 'biosphere3' tiene ese nombre por defecto.
 bd.databases
 
 # %% [markdown]
@@ -143,7 +143,7 @@ bd.databases
 
 # %%
 biosfera = bd.Database('biosphere3')
-
+biosfera.register()
 # %% [markdown]
 # Por ahora no exploraremos a detalle esta base de datos. Si embargo utilizaremos la funcion `random` que nos permite muestrear un nodo aleatorio para ver de que trata el contenido.
 
@@ -153,23 +153,23 @@ biosfera = bd.Database('biosphere3')
 
 
 # %% [markdown]
-# De manera similar, podemos explorar los diferentes metodos que fueron instalados previamente. En brightway, los metodos presentados como una combinacion de tres elementos: 
+# De manera similar, podemos explorar los diferentes metodos que fueron instalados previamente. En brightway, los metodos presentados como una combinacion de tres elementos:
 # > (<'Nombre del metodo'>, <'Categoria de impacto'>, <'Indicador'>)
 
 # %%
-bd.methods 
+bd.methods
 # Hay que 'convertir' bw2data.methods en una lista para poder ver todos los metodos disponibles
-# list(bd.methods) 
+# list(bd.methods)
 
 # %% [markdown]
-# Buscar un metodo en una lista tan extensa puede ser muy problematico. 
+# Buscar un metodo en una lista tan extensa puede ser muy problematico.
 # Para facilitar la busqueda de una metodo en especifico, podemos utilizar el poder de python.
 
 # %%
 # bw2data.methods es un objeto sobre el que se puede iterar
 # Por ejemplo, busquemos un metodo relacionado con el cambio climatico
 for nombre, categoria, indicator in bd.methods:
-    if 'acidification' in category:
+    if 'acidification' in categoria:
         print((nombre, categoria, indicator))
 
 # %% [markdown]
@@ -210,7 +210,7 @@ if 'new_biosphere' in bd.databases:
 # %% [markdown]
 # ## Manipular Actividades
 # Una de las funcionalidades de brightway mas importantes es la creacion de actividades (o nodos, en general).
-# Se puede crear una actividad utilizando la funcion `new_activity`, perteneciente a los objetos de base de datos. En este caso, se puede indicar cualquier cantidad de argumentos pero incluyendo SIEMPRE los argumentos `code`, `name`, `unit` y `location`. Estos cuatro argumentos son obligatorios porque es lo minimo requerido para tener actividades unicas. 
+# Se puede crear una actividad utilizando la funcion `new_activity`, perteneciente a los objetos de base de datos. En este caso, se puede indicar cualquier cantidad de argumentos pero incluyendo SIEMPRE los argumentos `code`, `name`, `unit` y `location`. Estos cuatro argumentos son obligatorios porque es lo minimo requerido para tener actividades unicas.
 #
 
 # %%
@@ -277,9 +277,9 @@ cf = db.new_activity(**data)
 cf.save()
 
 ng = db.new_activity(
-    name="Nat Gas", 
-    code='ng', 
-    location='NO', 
+    name="Nat Gas",
+    code='ng',
+    location='NO',
     unit='MJ'
 )
 
@@ -291,8 +291,8 @@ print(list(db))
 # %%
 # Creamos un nodo en la biosfera
 co2 = bd.Database('biosphere3').new_activity(
-    name="Carbon Dioxide", 
-    code='co2', 
+    name="Carbon Dioxide",
+    code='co2',
     categories=('air',),
     type='emission',
 )
@@ -314,19 +314,19 @@ co2.save()
 # %%
 
 bike.new_exchange(
-    amount=2.5, 
+    amount=2.5,
     type='technosphere',
     input=cf
 ).save()
 
 cf.new_exchange(
-    amount=237, 
+    amount=237,
     type='technosphere',
     input=ng,
 ).save()
 
 cf.new_exchange(
-    amount=26.6, 
+    amount=26.6,
     type='biosphere',
     input=co2,
 ).save()
@@ -346,21 +346,21 @@ ipcc.write([
 # %%
 lca = bc.LCA({bike:1},method=('IPCC',)) # Instancia la clase
 lca.lci() # calcula el inventario de ciclo de vida
-lca.lcia() # Calcula los impactos 
+lca.lcia() # Calcula los impactos
 print("El impacto es: ", lca.score)
 
 # %% [markdown]
 # 🚧 **Manos a la obra**:
 # - Se ha descubierto que la produccion de fibra de carbono emite 0.23 kg de monoxido dinitrogeno al aire $N_{2}O$ por cada kilogramo de fibra de carbono producido.
 # - El factor de caracterizacion del $N_{2}O$ es 276.9
-# - En cuanto ha aumentado el impacto ?  
+# - En cuanto ha aumentado el impacto ?
 
 
 # %%
 # Creamos un nodo en la biosfera
 n2o = bd.Database('biosphere3').new_activity(
-    name="Nitrous oxide", 
-    code='n2o', 
+    name="Nitrous oxide",
+    code='n2o',
     categories=('air',),
     type='emission',
 )
@@ -368,7 +368,7 @@ n2o = bd.Database('biosphere3').new_activity(
 n2o.save()
 
 cf.new_exchange(
-    amount=0.23, 
+    amount=0.23,
     type='biosphere',
     input=n2o,
 ).save()
@@ -385,7 +385,7 @@ ipcc.load()
 # %%
 lca_nuevo = bc.LCA({bike:1},method=('IPCC',)) # Instancia la clase
 lca_nuevo.lci() # calcula el inventario de ciclo de vida
-lca_nuevo.lcia() # Calcula los impactos 
+lca_nuevo.lcia() # Calcula los impactos
 print("El impacto ahora es: ", lca_nuevo.score)
 
 print(f"El impacto aumento en: {(lca_nuevo.score-lca.score)*100/lca.score} %")
@@ -394,9 +394,9 @@ print(f"El impacto aumento en: {(lca_nuevo.score-lca.score)*100/lca.score} %")
 
 # %% [markdown]
 # ## Exportar bases de datos y proyectos
-# En la seccion anterior aprendimos a crear bases de datos de manera automatica ('biosphere3') y de manera manual ('mi_base_de_datos'). 
+# En la seccion anterior aprendimos a crear bases de datos de manera automatica ('biosphere3') y de manera manual ('mi_base_de_datos').
 # En situaciones convencionales, es normal que necesitemos compartir nuestros modelos de inventario, ya sea durante el trabajo colaborativo o para reportar nuestro trabajo a revisores, colegas y cualquier por razones de transparencia.
-# Para esto, bw2io ofrece una serie de herramientas que pueden usarse para exportar los modelos en diferentes formatos. 
+# Para esto, bw2io ofrece una serie de herramientas que pueden usarse para exportar los modelos en diferentes formatos.
 # Por un tema de popularidad, en esta seccion nos enfocaremos en 3 herramientas:
 # - Exportar una base de datos a excel
 # - Exportar una base de datos a csv (dataframe)
@@ -422,7 +422,7 @@ bd.projects.set_current('example_project')
  # bi.export.excel.write_lci_excel??
 
 # %%
-# dirpath es el argumento que controla en que ubicacion se exportara el archivo. 
+# dirpath es el argumento que controla en que ubicacion se exportara el archivo.
 # En sistemas operativos tipo UNIX (Linux, MacOS), '.' significa 'aqui'.
 directorio = bi.export.excel.write_lci_excel(database_name='mi_base_de_datos',dirpath='.')
 
@@ -485,7 +485,7 @@ bicicleta = db.get('bici') # seleccionamos la actividad que tiene codigo 'bici',
 # %%
 lca = bc.LCA({bicicleta:1},method=('IPCC',)) # Instancia la clase
 lca.lci() # calcula el inventario de ciclo de vida
-lca.lcia() # Calcula los impactos 
+lca.lcia() # Calcula los impactos
 print("El impacto es: ", lca.score) # Es el mismo 🎉
 
 # %% [markdown]
