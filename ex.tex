@@ -1,0 +1,268 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage[draft]{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\title{\Large\textbf{Análisis de Ciclo de Vida}}
+\author{Un Ejemplo Ilustrativo de la Producción de Electricidad}
+\date{Presentado por Gustavo Larrea-Gallegos \\ October 27, 2025}
+\maketitle
+
+\newpage
+
+\section*{Esquema}
+
+\begin{enumerate}
+\item Introducción al Análisis de Ciclo de Vida (ACV)
+\item Fase 1: Definición del Objetivo y Alcance
+\item Fase 2: Inventario de Ciclo de Vida (ICV)
+\item Fase 3: Evaluación de Impacto de Ciclo de Vida (EICV)
+\end{enumerate}
+
+\newpage
+
+\section*{¿Qué es el ACV?}
+
+El Análisis de Ciclo de Vida (ACV) es una metodología que evalúa los impactos ambientales pot
+enciales de un producto, proceso o servicio durante todo su ciclo de
+ vida, desde la extracción de materias primas hasta la disposición final.
+
+
+Proporciona un marco matemático riguroso para el ACV.
+
+\newpage
+
+\section*{Objetivo y Alcance de Nuestro Ejemplo}
+
+\textbf{Objetivo:} Evaluar el impacto ambiental de la producción de 1 kWh de electricidad.
+
+\textbf{Alcance:} Incluye tres procesos principales:
+\begin{itemize}
+\item Producción de electricidad
+\item Producción de combustible
+\item Extracción de petróleo
+\end{itemize}
+
+\
+textbf{Impactos considerados:} Cambio climático (kg CO₂ eq) y Potencial de Calentamiento Global (PCG).
+
+\newpage
+
+\section*{Procesos Unitarios y Flujos}
+
+Para nuestro análisis, consideraremos tres procesos unitarios interconectados, cada uno con sus respectivos flujos de entrada y salida. Este enfoque nos permite un análisis detallado y ilustrativo.
+
+\newpage
+
+\section*{Desglosando el ICV: Matrices y Vectores}
+
+En la metodología de ACV, el Inventario de Ciclo de Vida se puede representar matemáticamente utilizando matrices y vectores. Esta representación nos permite calcular cuánto necesita operar cada proceso para satisfacer la demanda final.
+
+\newpage
+
+\section*{Matriz Tecnológica (A)}
+
+La matriz tecnológica A describe las relaciones técnicas entre los procesos. Los elementos positivos representan productos principales, mientras que los negativos representan insumos.
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+& Prod. Elec. & Prod. Comb. & Extr. Petr. \\
+\midrule
+Electricidad & 1000 & -100 & -50 \\
+Combustible & -200 & 800 & -60 \\
+Petróleo & 0 & -300 & 900 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Vector de demanda final f:}
+
+\begin{center}
+\begin{tabular}{c}
+1000 \\
+-200 \\
+0
+\end{tabular}
+\end{center}
+
+\newpage
+
+\section*{Matriz de Intervención (B)}
+
+La matriz de intervención B describe los flujos ambientales (emisiones y recursos) asociados con cada proceso unitario.
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Flujo & Prod. Elec. & Prod. Comb. & Extr. Petr. \\
+\midrule
+Emisiones CO₂ & 0.5 & 0.3 & 0.2 \\
+Uso de agua & 2.0 & 1.0 & 0.5 \\
+Uso de tierra & 0.1 & 0.05 & 0.8 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+(Datos hipotéticos para ilustración)
+
+\newpage
+
+\section*{Cálculo del Vector de Escalamiento}
+
+El vector de escalamiento s se calcula resolviendo el sistema: \textbf{A · s = f}, y luego calcular \textbf{g = B · s}.
+
+Donde:
+\begin{itemize}
+\item \textbf{A} es la matriz tecnológica
+\item \textbf{s} es el vector de escalamiento
+\item \textbf{f} es la demanda final
+\item \textbf{B} es la matriz de intervención
+\item \textbf{g} es el inventario ambiental
+\end{itemize}
+
+\newpage
+
+\section*{Resultados del Inventario}
+
+Una vez calculado el vector de escalamiento, podemos determinar el inventario ambiental total para satisfacer nuestra demanda funcional.
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Flujo Ambiental & Cantidad Total \\
+\midrule
+Emisiones CO₂ (kg) & X \\
+Uso de agua (L) & Y \\
+Uso de tierra (m²) & Z \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+
+\section*{Matriz de Caracterización}
+
+La matriz de caracterización Q convierte los flujos del inventario en impactos ambientales potenciales.
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+& CO₂ & Agua & Tierra \\
+\midrule
+Cambio climático & 1.0 & 0 & 0 \\
+Eutrofización & 0 & 0.5 & 0.1 \\
+Uso de recursos & 0 & 1.0 & 0.8 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+
+\section*{Evaluación de Impacto}
+
+Los impactos finales se calculan mediante: \textbf{h = Q · g}
+
+Donde:
+\begin{itemize}
+\item \textbf{Q} es la matriz de factores de caracterización
+\item \textbf{g} es el inventario ambiental
+\item \textbf{h} es el vector de impactos final
+\end{itemize}
+
+\newpage
+
+\section*{Resultados Finales}
+
+Los resultados del ACV nos proporcionan una evaluación cuantitativa de los impactos ambientales asociados con la producción de 1 kWh de electricidad, considerando toda la cadena de suministro.
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Categoría de Impacto & Valor \\
+\midrule
+Cambio climático (kg CO₂ eq) & A \\
+Eutrofización (kg PO₄ eq) & B \\
+Uso de recursos (MJ) & C \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vfill
+\hrule
+\vspace{0.5cm}
+\textbf{Presentado por Gustavo Larrea-Gallegos \hfill Análisis de Ciclo de Vida \hfill October 27, 2025 \hfill 14 / 14}
+
+\end{document}

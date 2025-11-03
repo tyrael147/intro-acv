@@ -1,0 +1,174 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\title{Life Cycle Assessment Example}
+\subtitle{Based on "The Computational Structure of Life Cycle Assessment"}
+\author{An Illustrative Example of Electricity Production}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+\section{Introduction to Life Cycle Assessment (LCA)}
+
+\begin{frame}{What is LCA?}
+  \begin{itemize}
+    \item A systematic method to evaluate the environmental impacts of a product, process, or service throughout its entire life cycle.
+    \item Often referred to as a "cradle-to-grave" or "cradle-to-cradle" analysis.
+    \item Based on a functional unit to ensure a fair comparison.
+    \item The book "The Computational Structure of Life Cycle Assessment" by Heijungs and Suh provides a rigorous mathematical framework for LCA.
+  \end{itemize}
+\end{frame}
+
+\section{Phase 1: Goal and Scope Definition}
+
+\begin{frame}{Goal and Scope of Our Example}
+  \begin{itemize}
+    \item \textbf{Goal:} To illustrate the LCA methodology by assessing the potential environmental impacts of electricity production.
+    \item \textbf{Functional Unit:} 1000 kWh of electricity delivered to the consumer.
+    \item \textbf{System Boundaries:}
+      \begin{itemize}
+        \item Crude oil extraction
+        \item Transportation of crude oil
+        \item Oil refining to produce fuel
+        \item Electricity generation at a power plant
+      \end{itemize}
+    \item \textbf{Impact Categories Considered:} Global Warming Potential (GWP).
+  \end{itemize}
+\end{frame}
+
+\section{Phase 2: Life Cycle Inventory (LCI)}
+
+\begin{frame}{Unit Processes and Flows}
+  Our simplified system consists of the following unit processes:
+  \begin{enumerate}
+    \item \textbf{Electricity Production:} The core process from the book's example. To produce 10 kWh of electricity, it requires 2 liters of fuel. We will scale this to our functional unit.
+    \item \textbf{Fuel Production:} Assumed to require crude oil as a primary input.
+    \item \textbf{Crude Oil Extraction:} Assumed to have associated energy inputs and environmental emissions.
+  \end{enumerate}
+  We will use hypothetical but plausible data for this illustrative example.
+\end{frame}
+
+\begin{frame}{Deconstructing the LCI: Matrices and Vectors}
+    \begin{itemize}
+        \item \textbf{Technology Matrix (A):} This matrix represents the economic and technical flows within the system.
+        \begin{itemize}
+            \item Each column represents a unit process.
+            \item Each row represents a product flow.
+            \item The values quantify the inputs (negative) and outputs (positive) of products for each process.
+        \end{itemize}
+        \item \textbf{Intervention Matrix (B):} This matrix tracks the exchanges with the environment.
+        \begin{itemize}
+            \item Columns correspond to unit processes.
+            \item Rows represent environmental flows (emissions, resource extractions).
+        \end{itemize}
+        \item \textbf{Final Demand Vector (f):} This vector specifies the desired output from the system, our functional unit.
+        \item \textbf{Scaling Vector (s):} This vector is calculated to determine how much each process needs to operate to meet the final demand.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Technology Matrix (A)}
+ The technology matrix describes the inter-process flows. Rows and columns represent processes. An entry $A_{ij}$ is the input from process $i$ to produce one unit of output from process $j$.
+
+ \begin{center}
+ \begin{tabular}{c|ccc}
+   & E. Prod. & F. Prod. & O. Extr. \\
+  \hline
+  E. Prod. (kWh) & 1000 & 0 & 0 \\
+  F. Prod. (L) & -200 & 1 & 0 \\
+  O. Extr. (L) & 0 & -1.2 & 1 \\
+ \end{tabular}
+ \end{center}
+\end{frame}
+
+\begin{frame}{Intervention Matrix (B)}
+ The intervention matrix details the exchanges with the environment (emissions and resource extractions). Rows represent environmental flows and columns represent processes.
+
+ \begin{center}
+ \begin{tabular}{c|ccc}
+   & E. Prod. & F. Prod. & O. Extr. \\
+  \hline
+  CO$_2$ (kg) & 500 & 50 & 20 \\
+  Crude Oil (L) & 0 & 0 & -1 \\
+ \end{tabular}
+ \end{center}
+ (Hypothetical data for illustration)
+\end{frame}
+
+\begin{frame}{The Core Calculation: Matrix Algebra}
+  The fundamental equation of the Life Cycle Inventory is:
+  \begin{equation*}
+    g = B \cdot A^{-1} \cdot f
+  \end{equation*}
+  Where:
+    \begin{itemize}
+        \item $g$ is the resulting environmental inventory vector.
+        \item $B$ is the intervention matrix.
+        \item $A^{-1}$ is the inverse of the technology matrix, representing the total requirements of each process.
+        \item $f$ is the final demand vector.
+    \end{itemize}
+  This is equivalent to solving the system of linear equations: $A \cdot s = f$, and then calculating $g = B \cdot s$.
+\end{frame}
+
+\begin{frame}{Equivalent System of Equations}
+    Let's denote the scaling factors for Electricity Production, Fuel Production, and Oil Extraction as $s_{E}$, $s_{F}$, and $s_{O}$ respectively. The equation $A \cdot s = f$ translates to:
+    
+    \begin{align*}
+        1000 \cdot s_{E} + 0 \cdot s_{F} + 0 \cdot s_{O} &= 1000 \quad \text{(kWh of Electricity)} \\
+        -200 \cdot s_{E} + 1 \cdot s_{F} + 0 \cdot s_{O} &= 0 \quad \text{(Liters of Fuel)} \\
+        0 \cdot s_{E} - 1.2 \cdot s_{F} + 1 \cdot s_{O} &= 0 \quad \text{(Liters of Crude Oil)}
+    \end{align*}
+    
+    Solving this system gives us the scaling vector $s$, which tells us how much each process must scale up to deliver the 1000 kWh of electricity.
+\end{frame}
+
+
+\begin{frame}{Calculating the Inventory (s = A\textasciicircum\{-1\}f)}
+  \begin{itemize}
+    \item \textbf{f (Final Demand Vector):} We want 1000 kWh of electricity, so $f = [1000, 0, 0]^T$.
+    \item \textbf{A\textasciicircum\{-1\} (Inverse of Technology Matrix):}  Represents the total output required from each process to deliver the final demand.
+    \item \textbf{s (Scaling Vector):}  $s = A^{-1}f$ gives the necessary scaling for each process.
+    \item \textbf{g (Environmental Inventory):} $g = B \cdot s$ calculates the total environmental interventions.
+  \end{itemize}
+\end{frame}
+
+\section{Phase 3: Life Cycle Impact Assessment (LCIA)}
+
+\begin{frame}{Characterization}
+  We will assess the Global Warming Potential (GWP) by multiplying the CO$_2$ emissions by their characterization factor. For CO$_2$, the GWP factor is 1 kg CO$_2$-eq/kg.
+
+  \begin{itemize}
+    \item Let's assume the total CO$_2$ emissions calculated from the inventory ($g_{CO2}$) is 600 kg.
+    \item The total GWP would be:
+  \end{itemize}
+  \begin{center}
+  $GWP = 600 \text{ kg CO}_2 \times 1 \frac{\text{kg CO}_2\text{-eq}}{\text{kg CO}_2} = 600 \text{ kg CO}_2\text{-eq}$
+  \end{center}
+\end{frame}
+
+\section{Phase 4: Interpretation}
+
+\begin{frame}{Interpreting the Results}
+  \begin{itemize}
+    \item The total Global Warming Potential for producing 1000 kWh of electricity in our simplified model is 600 kg CO$_2$-eq.
+    \item A contribution analysis would break down which process contributes most to this impact. In our example, electricity production itself is the largest contributor.
+    \item A sensitivity analysis could explore how changes in the data (e.g., efficiency of the power plant) affect the final results.
+    \item \textbf{Conclusion:} This illustrative example demonstrates how the matrix-based approach provides a structured and quantifiable assessment of environmental impacts, enabling informed decision-making.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Conclusion}
+    The computational structure of LCA, as detailed by Heijungs and Suh, provides a robust and transparent framework for environmental assessment. Even a simplified example of electricity production highlights its power in identifying environmental hotspots and guiding sustainability improvements.
+\end{frame}
+
+\end{document}

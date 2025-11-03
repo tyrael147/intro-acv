@@ -1,0 +1,218 @@
+\documentclass{beamer}
+
+% Theme settings
+\mode<presentation>
+{
+  \usetheme{Madrid}
+  % \setbeamercovered{transparent}
+}
+
+% Required packages
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs} % For professional looking tables
+
+% Title, author, and date information
+\title[Análisis de Ciclo de Vida]{Análisis de Ciclo de Vida \\ \large Un Ejemplo Ilustrativo de la Producción de Electricidad}
+\author{Presentado por Gustavo Larrea-Gallegos}
+\date{October 27, 2025}
+
+\begin{document}
+
+% Slide 1: Title page
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Slide 2: Outline
+\begin{frame}
+  \frametitle{Esquema}
+  \begin{enumerate}
+    \item Introducción al Análisis de Ciclo de Vida (ACV)
+    \item Fase 1: Definición del Objetivo y Alcance
+    \item Fase 2: Inventario de Ciclo de Vida (ICV)
+    \item Fase 3: Evaluación de Impacto de Ciclo de Vida (EICV)
+  \end{enumerate}
+\end{frame}
+
+% Slide 3: What is LCA?
+\begin{frame}
+  \frametitle{Qué es el ACV?}
+  \begin{itemize}
+    \item Un método sistemático para evaluar los impactos ambientales de un producto, proceso o servicio a lo largo de todo su ciclo de vida.
+    \item A menudo se le conoce como un análisis "de la cuna a la tumba" o "de la cuna a la cuna".
+    \item Se basa en una unidad funcional para asegurar una comparación justa.
+    \item Proporciona un marco matemático riguroso para el ACV.
+  \end{itemize}
+\end{frame}
+
+% Slide 4: Goal and Scope
+\begin{frame}
+  \frametitle{Objetivo y Alcance de Nuestro Ejemplo}
+  \begin{itemize}
+    \item \textbf{Objetivo:} Ilustrar la metodología del ACV evaluando los potenciales impactos ambientales de la producción de electricidad.
+    \item \textbf{Unidad Funcional:} 1 kWh de electricidad entregada al consumidor.
+    \item \textbf{Límites del Sistema:}
+    \begin{itemize}
+      \item Extracción de petróleo crudo
+      \item Transporte de petróleo crudo
+      \item Refinación del petróleo para producir combustible
+      \item Generación de electricidad en una central eléctrica
+    \end{itemize}
+    \item \textbf{Categorías de Impacto Consideradas:} Potencial de Calentamiento Global (PCG).
+  \end{itemize}
+\end{frame}
+
+% Slide 5: Unit Processes and Flows
+\begin{frame}
+  \frametitle{Procesos Unitarios y Flujos}
+  Nuestro sistema simplificado consiste en los siguientes procesos unitarios:
+  \begin{itemize}
+    \item[1] \textbf{Producción de Electricidad:} El proceso central. Para producir 1000 kWh de electricidad, se requieren 200 litros de combustible.
+    \item[2] \textbf{Producción de Combustible:} Se asume que requiere petróleo crudo como insumo principal.
+    \item[3] \textbf{Extracción de Petróleo Crudo:} Se asume que tiene insumos de energía y emisiones ambientales asociadas.
+  \end{itemize}
+  Usaremos datos hipotéticos pero plausibles para este ejemplo ilustrativo.
+\end{frame}
+
+% Slide 6: LCI Breakdown
+\begin{frame}
+  \frametitle{Desglosando el ICV: Matrices y Vectores}
+  \begin{itemize}
+    \item \textbf{Matriz Tecnológica (A):} Esta matriz representa los flujos económicos y técnicos dentro del sistema.
+    \begin{itemize}
+      \item Cada columna representa un proceso unitario.
+      \item Cada fila representa un flujo de producto.
+      \item Los valores cuantifican las entradas (negativas) y salidas (positivas) de productos para cada proceso.
+    \end{itemize}
+    \item \textbf{Matriz de Intervención (B):} Esta matriz registra los intercambios con el medio ambiente.
+    \begin{itemize}
+      \item Las columnas corresponden a los procesos unitarios.
+      \item Las filas representan flujos ambientales (emisiones, extracciones de recursos).
+    \end{itemize}
+    \item \textbf{Vector de Demanda Final (f):} Este vector especifica la salida deseada del sistema, nuestra unidad funcional.
+    \item \textbf{Vector de Escalado (s):} Este vector se calcula para determinar cuánto necesita operar cada proceso para satisfacer la demanda final.
+  \end{itemize}
+\end{frame}
+
+% Slide 7: Technology Matrix
+\begin{frame}
+  \frametitle{Matriz Tecnológica (A)}
+  La matriz tecnológica describe los flujos entre procesos. Las filas y columnas representan procesos. Una entrada $A_{ij}$ es la entrada del proceso $i$ para producir una unidad de salida del proceso $j$.
+  \begin{center}
+  \begin{tabular}{l|ccc}
+  \toprule
+   & Prod. Elec. & Prod. Comb. & Extr. Petr. \\
+  \midrule
+  Prod. Elec. (kWh) & 1000 & 0 & 0 \\
+  Prod. Comb. (L) & -200 & 1 & 0 \\
+  Extr. Petr. (L) & 0 & -1.2 & 1 \\
+  \bottomrule
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+% Slide 8: Intervention Matrix
+\begin{frame}
+  \frametitle{Matriz de Intervención (B)}
+  La matriz de intervención detalla los intercambios con el medio ambiente (emisiones y extracciones de recursos). Las filas representan los flujos ambientales y las columnas los procesos.
+  \begin{center}
+  \begin{tabular}{l|ccc}
+  \toprule
+   & Prod. Elec. & Prod. Comb. & Extr. Petr. \\
+  \midrule
+  CO$_2$ (kg) & 500 & 50 & 20 \\
+  Petróleo Crudo (L) & 0 & 0 & -1 \\
+  \bottomrule
+  \end{tabular}
+  \end{center}
+  (Datos hipotéticos para ilustración)
+\end{frame}
+
+% Slide 9: Core Calculation
+\begin{frame}
+  \frametitle{El Cálculo Central: Álgebra Matricial}
+  La ecuación fundamental del Inventario de Ciclo de Vida es:
+  \begin{equation*}
+    g = B \cdot A^{-1} \cdot f
+  \end{equation*}
+  Donde:
+  \begin{itemize}
+    \item $g$ es el vector de inventario ambiental resultante.
+    \item $B$ es la matriz de intervención.
+    \item $A^{-1}$ es la inversa de la matriz tecnológica, que representa los requerimientos totales de cada proceso.
+    \item $f$ es el vector de demanda final.
+  \end{itemize}
+  Esto es equivalente a resolver el sistema de ecuaciones lineales: $A \cdot s = f$, y luego calcular $g = B \cdot s$.
+\end{frame}
+
+% Slide 10: Equivalent System of Equations
+\begin{frame}
+  \frametitle{Sistema de Ecuaciones Equivalente}
+  Denotemos los factores de escalado para la Producción de Electricidad, Producción de Combustible y Extracción de Petróleo como $s_E$, $s_F$ y $s_P$ respectivamente. La ecuación $A \cdot s = f$ se traduce en:
+  \begin{align*}
+    1000 \cdot s_E + 0 \cdot s_F + 0 \cdot s_P &= 1 \quad \text{(kWh de Electricidad)} \\
+    -200 \cdot s_E + 1 \cdot s_F + 0 \cdot s_P &= 0 \quad \text{(Litros de Combustible)} \\
+    0 \cdot s_E - 1.2 \cdot s_F + 1 \cdot s_P &= 0 \quad \text{(Litros de Petróleo Crudo)}
+  \end{align*}
+  Resolver este sistema nos da el vector de escalado $s$, que nos dice cuánto debe escalar cada proceso para entregar 1 kWh de electricidad.
+\end{frame}
+
+% Slide 11: Calculating the Inventory
+\begin{frame}
+  \frametitle{Calculando el Inventario ($s = A^{-1}f$)}
+  \begin{itemize}
+    \item \textbf{f (Vector de Demanda Final):} Queremos 1 kWh de electricidad, entonces $f = [1, 0, 0]^T$.
+    \item \textbf{$A^{-1}$ (Inversa de la Matriz Tecnológica):} Representa la producción total requerida de cada proceso para entregar la demanda final.
+    \item \textbf{s (Vector de Escalado):} $s = A^{-1}f$ proporciona el escalado necesario para cada proceso.
+    \item \textbf{g (Inventario Ambiental):} $g = B \cdot s$ calcula el total de intervenciones ambientales.
+  \end{itemize}
+\end{frame}
+
+% Slide 12: Characterization
+\begin{frame}
+  \frametitle{Caracterización}
+  Evaluaremos el Potencial de Calentamiento Global (Global Warming Potential) multiplicando las emisiones de CO$_2$ por su factor de caracterización. Para el CO$_2$, el factor de PCG es 1 kg CO$_2$-eq/kg.
+  \begin{itemize}
+    \item Supongamos que el total de emisiones de CO$_2$ calculado del inventario ($g_{CO2}$) es de 600 kg.
+    \item El PCG total sería:
+  \end{itemize}
+  \begin{equation*}
+    \text{PCG} = 600 \text{ kg CO}_2 \times 1 \frac{\text{kg CO}_2\text{-eq}}{\text{kg CO}_2} = 600 \text{ kg CO}_2\text{-eq}
+  \end{equation*}
+\end{frame}
+
+% Slide 13: Characterization Matrix
+\begin{frame}
+  \frametitle{Matriz de Caracterización (Q)}
+  La Matriz de Caracterización (Q) describe el factor de caracterización de cada flujo ambiental. Las filas categorías de impacto mientras que las columnas representan nodos de la biosfera.
+  \begin{center}
+  \begin{tabular}{l|cc}
+  \toprule
+   & CO$_2$ & Petróleo Crudo (L) \\
+  \midrule
+  GWP & 1 & 0 \\
+  Agot. de Rec. & 0 & 1 \\
+  Estrés hídrico & 0 & 0 \\
+  \bottomrule
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+% Slide 14: Impact Calculation
+\begin{frame}
+  \frametitle{Cálculo de impactos}
+  Una vez calculado los inventarios de emisiones, el vector de impactos final se calcula con esta ecuación:
+  \begin{equation*}
+    h = Q \cdot g
+  \end{equation*}
+  Donde:
+  \begin{itemize}
+    \item $Q$ es la matriz de factores de caracterización
+    \item $g$ es el inventario ambiental.
+    \item $h$ es el vector de impactos final.
+  \end{itemize}
+\end{frame}
+
+\end{document}

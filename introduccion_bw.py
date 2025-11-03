@@ -118,63 +118,16 @@ bd.projects
 bd.projects.set_current('example_project')
 bd.databases
 
-# %%
-# bi.bw2setup()
-
 # %% [markdown]
-# El mensaje de la celda de arriba nos dice que `bw2io` ha creado una base de datos llamada 'biosphere3' que contiene 4709 nodos (flujos ambientales).
-# Adicionalmente, 762 metodos de impacto nuevos han sido creados.
-#
-
-# %% [markdown]
-# <div class="alert alert-block alert-info">
-# Diferentes grupos de investigacion actualizan constanmente distintos metodos de impacto. Por ello, cada version de `bw2io` puede presentar nuevos metodos de impacto. Puedes ver la version de bw2io asi: `bw2io.__version__`
-# </div>
-
-# %% [markdown]
-# La biosfera esta ahora almacenada en una base de datos. En la jerga de brightway, una base de datos no es mas que un objeto que permite acceder a los nodos contenidos en este. Podemos ver las bases de datos contenidas en este proyecto de la siguiente manera:
-
-# %%
-# La base de datos 'biosphere3' tiene ese nombre por defecto.
-bd.databases
-
-# %% [markdown]
-# Podemos manipular la biosfera asignando la base de datos a una nueva variable `biosfera` de la siguiente forma:
+# Podemos crear una biosfera asignando la base de datos a una nueva variable `biosfera` de la siguiente forma:
 
 # %%
 biosfera = bd.Database('biosphere3')
 biosfera.register()
-# %% [markdown]
-# Por ahora no exploraremos a detalle esta base de datos. Si embargo utilizaremos la funcion `random` que nos permite muestrear un nodo aleatorio para ver de que trata el contenido.
-
-# %%
-# Ejecuta esta celda multiples veces y veras que siempre tienes respuestas diferentes.
-# biosfera.random()
-
-
-# %% [markdown]
-# De manera similar, podemos explorar los diferentes metodos que fueron instalados previamente. En brightway, los metodos presentados como una combinacion de tres elementos:
-# > (<'Nombre del metodo'>, <'Categoria de impacto'>, <'Indicador'>)
-
-# %%
-bd.methods
-# Hay que 'convertir' bw2data.methods en una lista para poder ver todos los metodos disponibles
-# list(bd.methods)
-
-# %% [markdown]
-# Buscar un metodo en una lista tan extensa puede ser muy problematico.
-# Para facilitar la busqueda de una metodo en especifico, podemos utilizar el poder de python.
-
-# %%
-# bw2data.methods es un objeto sobre el que se puede iterar
-# Por ejemplo, busquemos un metodo relacionado con el cambio climatico
-for nombre, categoria, indicator in bd.methods:
-    if 'acidification' in categoria:
-        print((nombre, categoria, indicator))
 
 # %% [markdown]
 # ## Manipular bases de datos
-# En la seccion anterior, dejamos que `bw2io.bw2setup` cree una base de datos nueva llamada 'biosphere3'. Una base de datos contiene nodos, ya sean de la biosfera o de la tecnosfera. En otros software, los nodos de la biosfera suelen ser llamados Elementary Flow y los de la tecnosfera, Activities. En brightway, se utiliza el concepto general de 'nodo' a cualquier elemento que este contenido en una base de datos. Este puede ser un flujo elemental o un actividad de la tecnosfera.
+# En la seccion anterior, creamos una base de datos nueva llamada 'biosphere3'. Una base de datos contiene nodos, ya sean de la biosfera o de la tecnosfera. En otros software, los nodos de la biosfera suelen ser llamados Elementary Flow y los de la tecnosfera, Activities. En brightway, se utiliza el concepto general de 'nodo' a cualquier elemento que este contenido en una base de datos. Este puede ser un flujo elemental o un actividad de la tecnosfera.
 #
 # En este sentido, una nueva base de datos puede ser creada de la siguiente manera:
 #
@@ -188,7 +141,7 @@ mi_db = bd.Database('mi_base_de_datos')
 mi_db.register()
 
 # %% [markdown]
-# Podemos verificar que ahora existen 2 bases de datos, la biosfera creada por `bw2io` y `mi_base_de_datos`, creada por nosotros.
+# Podemos verificar que ahora existen 2 bases de datos, `la biosfera` y `mi_base_de_datos`, creada por nosotros
 
 # %%
 bd.databases
