@@ -9,13 +9,12 @@
 # ## Instala las brightway y las dependencias necesarias
 
 # %%
-# !pip install bw2calc==2.0.dev17 -q # Paquete de brightway
-# !pip install bw2data==4.0.dev42 -q # Paquete de brightway
-# !pip install bw2io==0.9.dev27 -q # Paquete de brightway
-# !pip install polars==0.20.15 -q
+# !pip install bw2calc>=2.1 -q # Paquete de brightway
+# !pip install bw2data>=4.5 -q # Paquete de brightway
+# !pip install bw2io>=0.9.11 -q # Paquete de brightway
+# !pip install polars -q
 # !pip install pypardiso -q
-# !pip install scipy==1.12.0 -q
-# !pip install seaborn==0.13.2 -q
+# !pip install seaborn>=0.13.2 -q
 
 # %% [markdown]
 # <div class="alert alert-block alert-warning">
