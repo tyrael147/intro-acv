@@ -1,6 +1,7 @@
 # %% [markdown]
 # # COMENCEMOS!
-# Este pdf tiene otro ejemplo similar `https://colab.research.google.com/github/tyrael147/intro-acv/blob/main/acv_computacional.ipynb#scrollTo=15e11889i`_.
+# Este pdf tiene otro ejemplo similar [aqui](https://drive.google.com/file/d/1wSVjaStfurIdMmzBihv-chDKGHNavO_M/view?usp=sharing)
+
 # %% [markdown]
 # # Introduccion
 #

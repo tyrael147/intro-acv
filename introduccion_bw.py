@@ -18,7 +18,7 @@
 
 # %% [markdown]
 # <div class="alert alert-block alert-warning">
-# ⚠️ Debes restaurar la sesion!
+# ⚠️ Debes restaurar la sesion! (Runtime > Restart Session)
 # </div>
 #
 
