@@ -29,18 +29,18 @@
 #
 # El primer paso consiste en importar las dependencias necesarias:
 # %%
+import bw2calc as bc
 import bw2data as bd
 import bw2io as bi
-import bw2calc as bc
 from rich import print
 
 # %% [markdown]
 # Podemos ver la lista de proyectos existentes utilizando el modulo `bw2data`:
 
 # %%
-print('bw2data version: ',bd.__version__)
-print('bw2io version: ',bi.__version__)
-print('bw2calc version: ',bc.__version__)
+print("bw2data version: ", bd.__version__)
+print("bw2io version: ", bi.__version__)
+print("bw2calc version: ", bc.__version__)
 
 # %%
 bd.projects
@@ -56,7 +56,7 @@ bd.projects.current
 # En caso que desee cambiar de proyecto, la funcion `bw2data.set_current(<el-nombre-de-tu-proyecto>)` permite elegir un proyecto existente. En el caso que el proyecto no exista, esta funcion creara un proyecto nuevo.
 
 # %%
-bd.projects.set_current('nuevo_proyecto')
+bd.projects.set_current("nuevo_proyecto")
 
 # %%
 # Puede ver que 'nuevo_proyecto' aparece ahora en la lista de proyectos.
@@ -87,7 +87,7 @@ bd.projects
 # %%
 # El argumento `delete_dir` es booleano e indica
 # si tambien se desea eliminar la carpeta que contiene los datos del proyecto.
-bd.projects.delete_project(name='nuevo_proyecto', delete_dir=True)
+bd.projects.delete_project(name="nuevo_proyecto", delete_dir=True)
 
 
 # %% [markdown]
@@ -100,43 +100,37 @@ bd.projects.delete_project(name='nuevo_proyecto', delete_dir=True)
 # %%
 # Inserta el codigo aqui
 
-# %% [markdown]
-# ## Creando una nueva biosfera
-# Brightway esta fuertemente (pero no estrictamente) ligado a los modelos y esquemas utilizados por ecoinvent.
-# Por esto, los metodos de impacto y flujos ambientales (biosfera) son aquellos proporcionados por ecoinvent a traves de su servicio ecoquery.
-# Aunque los metodos son desarrollados por grupos de investigacion independientes, ecoinvent los centraliza y modifica a fin de que sean compatibles y listos para conectarse con su base de datos.
-
-# %% [markdown]
-# Lo primero que haremos sera crear una biosfera (a la ecoinvent) y los multiples metodos de impacto disponibles por defecto.
-# Para esto, el paquete `bw2io` cuenta con una funcion llama `bw2setup`, asi:
 
 # %%
 bd.projects
 
 # %%
-bd.projects.set_current('example_project')
+bd.projects.set_current("example_project")
 bd.databases
 
 # %% [markdown]
-# Podemos crear una biosfera asignando la base de datos a una nueva variable `biosfera` de la siguiente forma:
+# ## Creando una nueva biosfera
+# Brightway esta fuertemente (pero no estrictamente) ligado a los modelos y esquemas utilizados por ecoinvent.
+# Por esto, los metodos de impacto y flujos ambientales (biosfera) son aquellos proporcionados por ecoinvent a traves de su servicio ecoquery.
+# Aunque los metodos son desarrollados por grupos de investigacion independientes, ecoinvent los centraliza y modifica a fin de que sean compatibles y listos para conectarse con su base de datos.
+# En esta ocasión comenzaremos creando una biosfera asignando la base de datos a una nueva variable `biosfera` de la siguiente forma:
 
 # %%
-biosfera = bd.Database('biosphere3')
+biosfera = bd.Database("biosphere3")
 biosfera.register()
-
+biosfera
 # %% [markdown]
 # ## Manipular bases de datos
-# En la seccion anterior, creamos una base de datos nueva llamada 'biosphere3'. Una base de datos contiene nodos, ya sean de la biosfera o de la tecnosfera. En otros software, los nodos de la biosfera suelen ser llamados Elementary Flow y los de la tecnosfera, Activities. En brightway, se utiliza el concepto general de 'nodo' a cualquier elemento que este contenido en una base de datos. Este puede ser un flujo elemental o un actividad de la tecnosfera.
+# Una base de datos contiene nodos, ya sean de la biosfera o de la tecnosfera. En otros software, los nodos de la biosfera suelen ser llamados Elementary Flow y los de la tecnosfera, Activities. En brightway, se utiliza el concepto general de 'nodo' a cualquier elemento que este contenido en una base de datos. Este puede ser un flujo elemental o un actividad de la tecnosfera.
 #
 # En este sentido, una nueva base de datos puede ser creada de la siguiente manera:
-#
 
 # %%
 # Primero, se asigna una instancia de base de datos a una variable
 # Esta informacion esta en la memoria de la computadora pero no grabado en el disco
-mi_db = bd.Database('mi_base_de_datos')
+mi_db = bd.Database("mi_base_de_datos")
 
-#Segundo, se registra la base de datos para que sea grabada en el disco
+# Segundo, se registra la base de datos para que sea grabada en el disco
 mi_db.register()
 
 # %% [markdown]
@@ -149,15 +143,15 @@ bd.databases
 # En muchas situaciones, puede que sea necesario realizar una copia de una base de datos. Esto puede realizarse de la siguiente forma:
 
 # %%
-new_database = bd.Database('biosphere3').copy('new_biosphere')
+new_database = bd.Database("biosphere3").copy("new_biosphere")
 
 # %% [markdown]
 # Para borrar una base de datos, solo hay que imaginar que `bd.databases` tiene las mismas propiedades que un diccionario de python y utilizar `del`
 #
 
 # %%
-if 'new_biosphere' in bd.databases:
-    del bd.databases['new_biosphere']
+if "new_biosphere" in bd.databases:
+    del bd.databases["new_biosphere"]
 
 # %% [markdown]
 # ## Manipular Actividades
@@ -172,23 +166,26 @@ bd.projects
 bd.databases
 
 # %%
-if 'mi_base_de_datos' in bd.databases: # es una buena practica para siempre comenzar en un lienzo en blanco
-    del bd.databases['mi_base_de_datos']
-
+if (
+    "mi_base_de_datos" in bd.databases
+):  # es una buena practica para siempre comenzar en un lienzo en blanco
+    del bd.databases["mi_base_de_datos"]
 
 
 # %%
-db = bd.Database('mi_base_de_datos')
+db = bd.Database("mi_base_de_datos")
 db.register()
-activity_ejemplo = db.new_activity(code='codigo-unico', name='nombre-no-unico', unit='unidad', location='PE')
-activity_ejemplo.save() # Este paso es SIEMPRE necesario para grabar la informacion en el disco
+activity_ejemplo = db.new_activity(
+    code="codigo-unico", name="nombre-no-unico", unit="unidad", location="PE"
+)
+activity_ejemplo.save()  # Este paso es SIEMPRE necesario para grabar la informacion en el disco
 print(list(db))
 
 # %% [markdown]
 # Esta actividad se encuentra ahora registrada en el disco y puede accederse utilizando su identificar `code` y la funcion `get`. Es importante aclarar que `code` es unico solo para la base de datos.
 
 # %%
-actividad = db.get('codigo-unico')
+actividad = db.get("codigo-unico")
 print(actividad)
 
 # %% [markdown]
@@ -208,45 +205,37 @@ actividad.delete()
 # Siguiendo el ejemplo de la bicicleta, podemos ta crear todos los nodos (tecnosfera y biosfera).
 
 # %%
-data = {
-    'code': 'bici',
-    'name': 'produccion bici',
-    'location': 'PE',
-    'unit': 'piece'
-}
+data = {"code": "bici", "name": "produccion bici", "location": "PE", "unit": "piece"}
 
 bike = db.new_activity(**data)
 bike.save()
 
-data = {
-    'code': 'CF',
-    'name': 'carbon fibre',
-    'unit': 'kilogram',
-    'location': 'CN'
-}
+data = {"code": "CF", "name": "carbon fibre", "unit": "kilogram", "location": "CN"}
 
 cf = db.new_activity(**data)
 cf.save()
 
-ng = db.new_activity(
-    name="Nat Gas",
-    code='ng',
-    location='NO',
-    unit='MJ'
-)
+ng = db.new_activity(name="Nat Gas", code="ng", location="NO", unit="MJ")
 
 ng.save()
 
 print(list(db))
 
 
+# %% [markdown]
+# Ahora que la tecnhosphera ha sido creada, crearemos nodos en la biosfera.
 # %%
+
 # Creamos un nodo en la biosfera
-co2 = bd.Database('biosphere3').new_activity(
+co2 = bd.Database(
+    "biosphere3"
+).new_activity(
     name="Carbon Dioxide",
-    code='co2',
-    categories=('air',),
-    type='emission',
+    code="co2",
+    categories=(
+        "air",
+    ),  # Es importante definir las categorias cuando se crean nuevos métodos debido a que
+    type="emission",  # Es importante definir el tipo de flujo (emision or recurso)
 )
 
 co2.save()
@@ -256,7 +245,7 @@ co2.save()
 # # En caso quiera borrar todos los nodos de `db`
 # co2.delete()
 # for i in db:
-    # i.delete()
+# i.delete()
 
 # %% [markdown]
 # Ya contamos con todos los nodos, sin embargo estos estan desconectados.
@@ -265,21 +254,17 @@ co2.save()
 
 # %%
 
-bike.new_exchange(
-    amount=2.5,
-    type='technosphere',
-    input=cf
-).save()
+bike.new_exchange(amount=2.5, type="technosphere", input=cf).save()
 
 cf.new_exchange(
     amount=237,
-    type='technosphere',
+    type="technosphere",
     input=ng,
 ).save()
 
 cf.new_exchange(
     amount=26.6,
-    type='biosphere',
+    type="biosphere",
     input=co2,
 ).save()
 
@@ -287,18 +272,20 @@ cf.new_exchange(
 # Podemos ahora crear un metodo nuevo que solo tenga un factor de caracterizacion:
 
 # %%
-ipcc = bd.Method(('IPCC',)) # Si no existe, lo crea
-ipcc.write([
-    (co2.key, {'amount': 1}),
-])
+ipcc = bd.Method(("IPCC",))  # Si no existe, lo crea
+ipcc.write(
+    [
+        (co2.key, {"amount": 1}),
+    ]
+)
 
 # %% [markdown]
 # El paquete `bw2calc` contiene las herramientas para realizar los calculos, como la clase LCA:
 
 # %%
-lca = bc.LCA({bike:1},method=('IPCC',)) # Instancia la clase
-lca.lci() # calcula el inventario de ciclo de vida
-lca.lcia() # Calcula los impactos
+lca = bc.LCA({bike: 1}, method=("IPCC",))  # Instancia la clase
+lca.lci()  # calcula el inventario de ciclo de vida
+lca.lcia()  # Calcula los impactos
 print("El impacto es: ", lca.score)
 
 # %% [markdown]
@@ -310,37 +297,37 @@ print("El impacto es: ", lca.score)
 
 # %%
 # Creamos un nodo en la biosfera
-n2o = bd.Database('biosphere3').new_activity(
+n2o = bd.Database("biosphere3").new_activity(
     name="Nitrous oxide",
-    code='n2o',
-    categories=('air',),
-    type='emission',
+    code="n2o",
+    categories=("air",),
+    type="emission",
 )
 
 n2o.save()
 
 cf.new_exchange(
     amount=0.23,
-    type='biosphere',
+    type="biosphere",
     input=n2o,
 ).save()
 
 # %%
-ipcc = bd.Method(('IPCC',))
+ipcc = bd.Method(("IPCC",))
 factors = ipcc.load()
-factors.append(((n2o.key),{'amount': 276.9}))
+factors.append(((n2o.key), {"amount": 276.9}))
 ipcc.write(factors)
 
 # %%
 ipcc.load()
 
 # %%
-lca_nuevo = bc.LCA({bike:1},method=('IPCC',)) # Instancia la clase
-lca_nuevo.lci() # calcula el inventario de ciclo de vida
-lca_nuevo.lcia() # Calcula los impactos
+lca_nuevo = bc.LCA({bike: 1}, method=("IPCC",))  # Instancia la clase
+lca_nuevo.lci()  # calcula el inventario de ciclo de vida
+lca_nuevo.lcia()  # Calcula los impactos
 print("El impacto ahora es: ", lca_nuevo.score)
 
-print(f"El impacto aumento en: {(lca_nuevo.score-lca.score)*100/lca.score} %")
+print(f"El impacto aumento en: {(lca_nuevo.score - lca.score) * 100 / lca.score} %")
 
 # %%
 
@@ -359,24 +346,27 @@ print(f"El impacto aumento en: {(lca_nuevo.score-lca.score)*100/lca.score} %")
 # Brightway utiliza un template para leer y exportar bases de datos en formato excel. Es conveniente para distribuir versiones finales del inventario. No es muy bueno almacenando informacion anidad. No permite 'trackear' los cambios debido a que *.xlsx no es un formato de texto.
 
 # %%
+import bw2calc as bc
 import bw2data as bd
 import bw2io as bi
-import bw2calc as bc
 from rich import print
+
 # Primero que nada, verifiquen que esten en el proyecto adecuado
 bd.projects.current
 
 # %%
 # Si no es el proyecto adecuado, ya saben que hacer
-bd.projects.set_current('example_project')
+bd.projects.set_current("example_project")
 
- # %%
- # bi.export.excel.write_lci_excel??
+# %%
+# bi.export.excel.write_lci_excel??
 
 # %%
 # dirpath es el argumento que controla en que ubicacion se exportara el archivo.
 # En sistemas operativos tipo UNIX (Linux, MacOS), '.' significa 'aqui'.
-directorio = bi.export.excel.write_lci_excel(database_name='mi_base_de_datos',dirpath='.')
+directorio = bi.export.excel.write_lci_excel(
+    database_name="mi_base_de_datos", dirpath="."
+)
 
 # %% [markdown]
 # ###  Exportar a csv
@@ -385,22 +375,22 @@ directorio = bi.export.excel.write_lci_excel(database_name='mi_base_de_datos',di
 #
 
 # %%
-db.nodes_to_dataframe() # Solo los nodos
+db.nodes_to_dataframe()  # Solo los nodos
 
 # %%
-db.edges_to_dataframe() # Solo aristas
+db.edges_to_dataframe()  # Solo aristas
 
 # %%
 # La funcion `to_csv` es propia de pandas, no de brightway
-db.nodes_to_dataframe().to_csv('mis-nodos.csv')
-db.edges_to_dataframe().to_csv('mis-aristas.csv')
+db.nodes_to_dataframe().to_csv("mis-nodos.csv")
+db.edges_to_dataframe().to_csv("mis-aristas.csv")
 
 # %% [markdown]
 # ###  Exportar proyecto completo como backup
 # La ultima opcion mas comun es la de exportar el proyecto completo en forma de archivo comprimido. Esto suele hacer cuando se desea guardar copias de todas las bases de datos de un proyecto. La desventaja es que el archivo resultado puede ser pesado y no es adecuado si no se tienen los permisos para compartir bases de datos comerciales.
 
 # %%
-bi.backup_project_directory('example_project',dir_backup='.')
+bi.backup_project_directory("example_project", dir_backup=".")
 
 # %% [markdown]
 # ## Importar bases de datos privadas
@@ -409,20 +399,26 @@ bi.backup_project_directory('example_project',dir_backup='.')
 # ### Importar un archivo de excel
 
 # %%
-importador = bi.ExcelImporter('lci-mi_base_de_datos.xlsx')
+importador = bi.ExcelImporter("lci-mi_base_de_datos.xlsx")
 importador.apply_strategies()
-importador.match_database(fields=('name', 'code', 'unit', 'location'))  # Conecta nodos del archivo excel
-importador.match_database('biosphere3', fields=('name','unit','categories')) # Conecta nodos con la base de datos biosphere3
+importador.match_database(
+    fields=("name", "code", "unit", "location")
+)  # Conecta nodos del archivo excel
+importador.match_database(
+    "biosphere3", fields=("name", "unit", "categories")
+)  # Conecta nodos con la base de datos biosphere3
 importador.statistics()
 importador.write_excel()
 
 # %%
-importador.match_database('biosphere3', fields=('name','unit','categories')) # Conecta nodos con la base de datos biosphere3
+importador.match_database(
+    "biosphere3", fields=("name", "unit", "categories")
+)  # Conecta nodos con la base de datos biosphere3
 importador.statistics()
 
 # %%
 importador.write_database()
-bd.databases # La base de datos se ha importado correctamente
+bd.databases  # La base de datos se ha importado correctamente
 
 # %%
 
@@ -431,14 +427,16 @@ bd.databases # La base de datos se ha importado correctamente
 # Ahora podemos 'simular' un ejercicio de reproducibilidad, y realizar el calculo de los impactos una vez mas.
 
 # %%
-db = bd.Database('mi_base_de_datos')
-bicicleta = db.get('bici') # seleccionamos la actividad que tiene codigo 'bici', la definimos en la seccion anterior
+db = bd.Database("mi_base_de_datos")
+bicicleta = db.get(
+    "bici"
+)  # seleccionamos la actividad que tiene codigo 'bici', la definimos en la seccion anterior
 
 # %%
-lca = bc.LCA({bicicleta:1},method=('IPCC',)) # Instancia la clase
-lca.lci() # calcula el inventario de ciclo de vida
-lca.lcia() # Calcula los impactos
-print("El impacto es: ", lca.score) # Es el mismo 🎉
+lca = bc.LCA({bicicleta: 1}, method=("IPCC",))  # Instancia la clase
+lca.lci()  # calcula el inventario de ciclo de vida
+lca.lcia()  # Calcula los impactos
+print("El impacto es: ", lca.score)  # Es el mismo 🎉
 
 # %% [markdown]
 # 🚧 **Manos a la obra**:
