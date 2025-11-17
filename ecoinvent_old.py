@@ -210,8 +210,6 @@ print("El impacto es: ", lca.score)
 # ### Procesos mas importantes
 # Para listar los procesos que generan mas impactos utilizaremos el paquete `bw2analyzer` y `pandas`.
 
-# !pip install bw2analyzer
-
 # +
 import pandas as pd
 import bw2analyzer as ba
@@ -242,5 +240,44 @@ pd.DataFrame(
 
 for key, cf in bd.Method(method).load():
     # print(key, cf)
-    print(bd.Database('biosphere3').get(key[1]))
+    print(bd.get_node(id=key), "CF: ",cf)
+
+
+# ## Analisis de incertidumbre
+# Realizar simulaciones de Monte Carlo es tan facil que requiere modificar una sola linea de la clase LCA.
+
+# +
+lca = bc.LCA(
+    {harina:1},
+    method=method,
+    use_distributions=True # Esto es nuevo
+) # Instancia la clase
+
+# El objeto LCA es ahora un 'generator'.
+# Es decir que podemos iterarlo las veces que necesitemos
+
+
+
+# +
+# Avanzamos un paso
+next(lca)
+
+results= []
+# iteramos 50 veces, es decir muestreamos 100 veces.
+for i in range(50):
+    lca.lci()
+    lca.lcia()
+    results.append(lca.score)
+    next(lca)
+# -
+
+# Tenemos una lista de resultados
+# que, en promedio deberia aproximarse a 0.44
+results
+
+# Podemos utilizar el paquete `seaborn` para visualizar la dispersion de los impactos
+import seaborn as sns
+sns.histplot(results)
+
+
 
