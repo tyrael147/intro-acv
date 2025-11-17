@@ -213,17 +213,17 @@ print(actividad.as_dict())
 # Siguiendo el ejemplo de la bicicleta, podemos ta crear todos los nodos (tecnosfera y biosfera).
 
 # %%
-data = {"code": "bici", "name": "produccion bici", "location": "PE", "unit": "piece"}
+data = {"code": "bici", "name": "produccion bici", "location": "PE", "unit": "piece","type":"processwithreferenceproduct"}
 
 bike = db.new_activity(**data)
 bike.save()
 
-data = {"code": "CF", "name": "carbon fibre", "unit": "kilogram", "location": "CN"}
+data = {"code": "CF", "name": "carbon fibre", "unit": "kilogram", "location": "CN","type":"processwithreferenceproduct"}
 
 cf = db.new_activity(**data)
 cf.save()
 
-ng = db.new_activity(name="Nat Gas", code="ng", location="NO", unit="MJ")
+ng = db.new_activity(name="Nat Gas", code="ng", location="NO", unit="MJ",type="processwithreferenceproduct")
 
 ng.save()
 
