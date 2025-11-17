@@ -109,8 +109,12 @@ bi.restore_project_directory(
 bd.projects.set_current("proyecto_ei")
 ei = bd.Database('ecoinvent-3.9.1-cutoff')
 seleccionado = ei.random() # Explora las actividades
+# Primero exploramos los keys de la actividad seleccionada
+print(list(seleccionado.keys()))
+# %%
+# Podemos ver el contenido de todo el dataset.
 print(seleccionado.as_dict())
-
+# %%
 # Como pueden notar, el contenido de la actividad ecoinvent es bastante rica. Existen campos fuera de `name`, `code`,`location` y `unit` que son nuevos para nosotros, lo que demuestra que brightway es lo suficientemente flexible al definir una actividad.
 #
 # Lo que vimos en la celda anterior describe a una actividad, pero aun no describe sus conexiones (`exchanges`). Para acceder a ellas, hay que utilizar las funciones `exchanges`, `technosphere` o `biosphere`, segun lo que se desee observar.

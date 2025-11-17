@@ -202,6 +202,14 @@ actividad.as_dict()
 actividad.delete()
 
 # %% [markdown]
+# La variable `actividad`  hace referencia a la actividad con codigo `codigo-unico`. En caso se desee modificar esta actividad hará falta modificar el contenido de la variable y luego grabar en el disco.
+
+# %%
+actividad['location'] = "DE"
+actividad.save()
+print(actividad.as_dict())
+
+# %% [markdown]
 # Siguiendo el ejemplo de la bicicleta, podemos ta crear todos los nodos (tecnosfera y biosfera).
 
 # %%
@@ -254,7 +262,7 @@ co2.save()
 
 # %%
 
-bike.new_exchange(amount=2.5, type="technosphere", input=cf).save()
+bike.new_exchange(amount=10, type="technosphere", input=cf).save()
 
 cf.new_exchange(
     amount=237,
@@ -268,6 +276,15 @@ cf.new_exchange(
     input=co2,
 ).save()
 
+# %% [markdown]
+# En caso haga falta modificar un flujo, se puede realizar la modificación de los datos y grabarlos en disco de la misma manera como se hizo con las actividades.
+
+# %%
+print(list(bike.exchanges()))
+# %%
+exc = list(bike.exchanges())[0]
+exc.update(amount=2.5) # El metodo update funciona igual que con los diccionarios de python
+exc.save()
 # %% [markdown]
 # Podemos ahora crear un metodo nuevo que solo tenga un factor de caracterizacion:
 
@@ -314,8 +331,8 @@ cf.new_exchange(
 
 # %%
 ipcc = bd.Method(("IPCC",))
-factors = ipcc.load()
-factors.append(((n2o.key), {"amount": 276.9}))
+factors = ipcc.load() # se cargan los factores de caracterizacion
+factors.append(((n2o.key), {"amount": 276.9})) # Se agrega una nueva sustancia
 ipcc.write(factors)
 
 # %%
