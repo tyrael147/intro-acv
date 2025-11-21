@@ -50,11 +50,9 @@ drive.CreateFile({"id": "1E3wPUOuRp13ucuNmq3557EuT3mszlmHB"}).GetContentFile(
 # !du -hs backup.tar.gz
 
 # %%
-from dotenv import load_dotenv
-
-load_dotenv()
 import bw2calc as bc
 import bw2data as bd
+import bw2io as bi
 from rich import print
 
 # %% [markdown]
@@ -237,12 +235,14 @@ import bw2analyzer as ba
 import pandas as pd
 
 # Create the dataframe with emissions data
-df = pd.DataFrame(
-    [
-        (x, y, z["name"])
-        for x, y, z in ba.ContributionAnalysis().annotated_top_emissions(lca=lca_cc)
-    ],
-    columns=["score", "quantity", "name"],
+print(
+    pd.DataFrame(
+        [
+            (x, y, z["name"])
+            for x, y, z in ba.ContributionAnalysis().annotated_top_emissions(lca=lca_cc)
+        ],
+        columns=["score", "quantity", "name"],
+    )
 )
 
 
@@ -267,6 +267,8 @@ df = pd.DataFrame(
 # - Emisiones de nitrógeno al suelo por pérdidas de fertilizante
 # %%
 # Si desean, pueden importar una imagen en vez de diagramar directamente en el notebook.
+# He utilizado un lenguaje para generar diagramas llamado mermaid:
+# https://mermaid.live/edit#pako:eNpVkcFygjAQhl8ls2e0IUBQpuOMFb1pe-ipwCElK2aExAlh2ur4VH2EvliROm3NKbvffv8e9gSlkQgJkG1t3sqdsI48p7kmlzfPVmidqtVRaIf3r_ZutlHOCmeIRDJvjFamIKPRjKTZkzWyK0v19al7OMz6ZF-RtdC9LdrimvmQPWHrVKmkuKpXsMhShS3Wt910qJbZslGtMhpbsnhkxQ1c_YMbImrSdlibAjyorJKQbEXdogcN2kZcajhd9BzcDhvMIem_Uth9Drk-99JB6BdjGkic7XrNmq7a_YZ0BykcpkpUVvyNoJZoF6bTDhI_mAwZkJzgHRIWTscBD-PYD-iU8igOPPjo2z4dRyH3I8YZDUM64WcPjsPaHkwnMWURj33GOWXMA5TKGbv-udRwsPM3zCWGMA
 import mermaid as md
 
 render = md.Mermaid("""
