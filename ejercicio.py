@@ -120,5 +120,5 @@
 # 2. Establecer los límites del sistema
 # 3. Crear el inventario de entradas y salidas utilizando Brightway
 # 4. Considerar los procesos de transporte cuando sean relevantes. Se pueden utilizar distancias aproximadas en barco, avion o transporte terrestre.
-# 5. Realizar el analisis para las 25 categorias del metodo EF v3.1
+# 5. Realizar el analisis para 2 de las categorias del metodo EF v3.1
 # 6. Analizar los resultados y proponer alternativas de mejora basadas en los resultados
