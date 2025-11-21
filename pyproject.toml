@@ -1,0 +1,20 @@
+[project]
+name = "intro-acv"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bw2analyzer>=0.11.8",
+    "bw2calc>=2.2.2",
+    "bw2data>=4.5.3",
+    "bw2io>=0.9.11",
+    "ipython>=9.7.0",
+    "jupyterlab>=4.5.0",
+    "mermaid-py>=0.8.0",
+    "pandas>=2.3.3",
+    "pypardiso>=0.4.7",
+    "python-dotenv>=1.2.1",
+    "rich>=14.2.0",
+    "seaborn>=0.13.2",
+]

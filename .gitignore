@@ -261,6 +261,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.autoenv*
+.bw2projects
 
 # Spyder project settings
 .spyderproject
@@ -323,4 +325,3 @@ pyrightconfig.json
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks,visualstudiocode,pycharm
-
