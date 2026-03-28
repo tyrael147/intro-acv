@@ -9,10 +9,6 @@
 # !pip install mermaid-py -q # Este paquete permite construir diagramas. Lo usaré para el reporte.
 # !pip install seaborn -q
 
-# %% [markdown]
-# <div class="alert alert-block alert-warning">
-# ⚠️ Debes restaurar la sesión!
-# </div>
 
 # %% [markdown]
 # Debemos descargar un archivo de respaldo que contiene BAFU. Para ello tenemos que autenticar nuestro usuario de **gmail** que fue creado anteriormente.

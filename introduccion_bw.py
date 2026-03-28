@@ -29,9 +29,6 @@
 #
 # El primer paso consiste en importar las dependencias necesarias:
 # %%
-from dotenv import load_dotenv
-
-load_dotenv()
 import bw2calc as bc
 import bw2data as bd
 import bw2io as bi

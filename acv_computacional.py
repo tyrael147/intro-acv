@@ -1,6 +1,6 @@
 # %% [markdown]
 # # COMENCEMOS!
-# Este pdf tiene otro ejemplo similar [aqui](https://drive.google.com/file/d/1wSVjaStfurIdMmzBihv-chDKGHNavO_M/view?usp=sharing)
+# Este pdf tiene otro ejemplo similar [aqui](https://drive.google.com/file/d/1XMNWBcQ0XRCizKGmo59HEKwdyduHHvho/view?usp=sharing)
 
 # %% [markdown]
 # # Introduccion
@@ -45,13 +45,12 @@
 # %%
 # Importamos las librerias numpy and scipy.
 # OJO: Aun no utilizamos brightway, este es tan solo un ejemplo.
-from rich import print # Solo para mejorar la grafica de las impresiones
 import numpy as np
-import scipy as sp
+from rich import print  # Solo para mejorar la grafica de las impresiones
 
-A = np.array([ [1, 0,0 ], [-2.5,1,0] , [0,-237,1]])
-B = np.array([[0,26.6,0]])
-f = np.array([1,0,0])
+A = np.array([[1, 0, 0], [-2.5, 1, 0], [0, -237, 1]])
+B = np.array([[0, 26.6, 0]])
+f = np.array([1, 0, 0])
 Q = np.array([1])
 
 # Verificamos
@@ -62,7 +61,7 @@ print(f"Las dimensiones del vector f son: {f.shape}")
 print("f: \n", f)
 # %%
 
-A_inv = np.linalg.inv(A) # np.lingalg.inv permite invertir matrices
+A_inv = np.linalg.inv(A)  # np.lingalg.inv permite invertir matrices
 s = A_inv.dot(f)
 g = B.dot(s)
 
