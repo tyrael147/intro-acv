@@ -1,6 +1,6 @@
 # %% [markdown]
 # # COMENCEMOS!
-# Este pdf tiene otro ejemplo similar [aqui](https://drive.google.com/file/d/1XMNWBcQ0XRCizKGmo59HEKwdyduHHvho/view?usp=sharing)
+# Este pdf tiene otro ejemplo similar [aqui](https://drive.google.com/file/d/1syI79mLi50sRoTIWzoK3ZkgfOHrGbqBj/view?usp=drive_link)
 
 # %% [markdown]
 # # Introduccion
