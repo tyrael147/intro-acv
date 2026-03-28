@@ -1,6 +1,6 @@
 PWD /home/larrea@private.list.lu/repos/intro-acv
 INPUT /var/lib/texmf/web2c/luahbtex/lualatex.fmt
-INPUT ./main_es.tex
+INPUT /home/larrea@private.list.lu/repos/intro-acv/main_es.tex
 OUTPUT main_es.log
 INPUT /usr/share/texlive/texmf-dist/tex/latex/tex-ini-files/lualatexquotejobname.lua
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/ltluatex.lua

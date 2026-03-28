@@ -324,4 +324,7 @@ pyrightconfig.json
 .history
 .ionide
 
+bafu2025/
+media/
+
 # End of https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks,visualstudiocode,pycharm

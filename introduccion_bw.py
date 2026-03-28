@@ -9,12 +9,12 @@
 # ## Instala las brightway y las dependencias necesarias
 
 # %%
-# !pip install bw2calc>=2.1 -q # Paquete de brightway
-# !pip install bw2data>=4.5 -q # Paquete de brightway
-# !pip install bw2io>=0.9.11 -q # Paquete de brightway
+# !pip install bw2calc -q # Paquete de brightway
+# !pip install bw2data -q # Paquete de brightway
+# !pip install bw2io -q # Paquete de brightway
 # !pip install polars -q
 # !pip install pypardiso -q
-# !pip install seaborn>=0.13.2 -q
+# !pip install seaborn -q
 
 # %% [markdown]
 # <div class="alert alert-block alert-warning">
@@ -29,6 +29,9 @@
 #
 # El primer paso consiste en importar las dependencias necesarias:
 # %%
+from dotenv import load_dotenv
+
+load_dotenv()
 import bw2calc as bc
 import bw2data as bd
 import bw2io as bi
@@ -205,7 +208,7 @@ actividad.delete()
 # La variable `actividad`  hace referencia a la actividad con codigo `codigo-unico`. En caso se desee modificar esta actividad hará falta modificar el contenido de la variable y luego grabar en el disco.
 
 # %%
-actividad['location'] = "DE"
+actividad["location"] = "DE"
 actividad.save()
 print(actividad.as_dict())
 
@@ -213,17 +216,35 @@ print(actividad.as_dict())
 # Siguiendo el ejemplo de la bicicleta, podemos ta crear todos los nodos (tecnosfera y biosfera).
 
 # %%
-data = {"code": "bici", "name": "produccion bici", "location": "PE", "unit": "piece","type":"processwithreferenceproduct"}
+data = {
+    "code": "bici",
+    "name": "produccion bici",
+    "location": "PE",
+    "unit": "piece",
+    "type": "processwithreferenceproduct",
+}
 
 bike = db.new_activity(**data)
 bike.save()
 
-data = {"code": "CF", "name": "carbon fibre", "unit": "kilogram", "location": "CN","type":"processwithreferenceproduct"}
+data = {
+    "code": "CF",
+    "name": "carbon fibre",
+    "unit": "kilogram",
+    "location": "CN",
+    "type": "processwithreferenceproduct",
+}
 
 cf = db.new_activity(**data)
 cf.save()
 
-ng = db.new_activity(name="Nat Gas", code="ng", location="NO", unit="MJ",type="processwithreferenceproduct")
+ng = db.new_activity(
+    name="Nat Gas",
+    code="ng",
+    location="NO",
+    unit="MJ",
+    type="processwithreferenceproduct",
+)
 
 ng.save()
 
@@ -283,7 +304,9 @@ cf.new_exchange(
 print(list(bike.exchanges()))
 # %%
 exc = list(bike.exchanges())[0]
-exc.update(amount=2.5) # El metodo update funciona igual que con los diccionarios de python
+exc.update(
+    amount=2.5
+)  # El metodo update funciona igual que con los diccionarios de python
 exc.save()
 # %% [markdown]
 # Podemos ahora crear un metodo nuevo que solo tenga un factor de caracterizacion:
@@ -305,6 +328,107 @@ lca.lci()  # calcula el inventario de ciclo de vida
 lca.lcia()  # Calcula los impactos
 print("El impacto es: ", lca.score)
 
+
+# %%
+
+# %% [markdown]
+# ## Método alternativo: Crear bases de datos usando diccionarios
+#
+# En la sección anterior, creamos una base de datos de forma secuencial:
+# 1. Primero creamos cada actividad con `new_activity()`
+# 2. Luego creamos los exchanges con `new_exchange()`
+# 3. Finalmente guardamos cada elemento con `save()`
+#
+# Sin embargo, **Brightway también permite crear bases de datos completas usando diccionarios**.
+# Este método es más compacto y útil cuando:
+# - Ya tienes todos los datos estructurados
+# - Quieres crear múltiples actividades de una sola vez
+# - Estás importando datos desde otra fuente
+#
+# La estructura básica es:
+# ```
+# db.write({
+#     (database_name, code): {
+#         'name': 'activity name',
+#         'unit': 'unit',
+#         'exchanges': [
+#             {'input': (db_name, code), 'amount': value, 'type': 'technosphere'},
+#             {'input': (db_name, code), 'amount': value, 'type': 'biosphere'}
+#         ]
+#     }
+# })
+# ```
+
+# %% [markdown]
+# ### Ejemplo: Recreando el modelo de la bicicleta con diccionarios
+# Vamos a recrear el mismo modelo de la bicicleta, pero esta vez usando el método de diccionarios:
+
+# %%
+# Primero creamos una nueva base de datos
+db_dict = bd.Database("mi_base_datos_dict")
+db_dict.register()
+
+# Ahora escribimos todas las actividades y sus exchanges de una sola vez
+db_dict.write(
+    {
+        ("mi_base_datos_dict", "bici_dict"): {
+            "name": "produccion bici (diccionario)",
+            "unit": "piece",
+            "location": "PE",
+            "type": "processwithreferenceproduct",
+            "exchanges": [
+                {
+                    "input": ("mi_base_datos_dict", "CF_dict"),
+                    "amount": 2.5,  # Usamos el valor actualizado
+                    "type": "technosphere",
+                }
+            ],
+        },
+        ("mi_base_datos_dict", "CF_dict"): {
+            "name": "carbon fibre (diccionario)",
+            "unit": "kilogram",
+            "location": "CN",
+            "type": "processwithreferenceproduct",
+            "exchanges": [
+                {
+                    "input": ("mi_base_datos_dict", "ng_dict"),
+                    "amount": 237,
+                    "type": "technosphere",
+                },
+                {
+                    "input": (
+                        "biosphere3",
+                        "co2",
+                    ),  # Referencia al CO2 creado anteriormente
+                    "amount": 26.6,
+                    "type": "biosphere",
+                },
+            ],
+        },
+        ("mi_base_datos_dict", "ng_dict"): {
+            "name": "Nat Gas (diccionario)",
+            "unit": "MJ",
+            "location": "NO",
+            "type": "processwithreferenceproduct",
+            "exchanges": [],  # Sin inputs en este ejemplo simple
+        },
+    }
+)
+
+# %%
+# Verificamos que se creó correctamente
+print("Actividades creadas:")
+for act in db_dict:
+    print(f"  - {act['name']}")
+
+# %%
+# Podemos hacer un LCA con esta nueva base de datos
+bike_dict = bd.Database("mi_base_datos_dict").get("bici_dict")
+lca_dict = bc.LCA({bike_dict: 1}, method=("IPCC",))
+lca_dict.lci()
+lca_dict.lcia()
+print(f"El impacto usando el método de diccionarios es: {lca_dict.score}")
+print(f"Comparado con el método secuencial: {lca.score}")
 # %% [markdown]
 # 🚧 **Manos a la obra**:
 # - Se ha descubierto que la produccion de fibra de carbono emite 0.23 kg de monoxido dinitrogeno al aire $N_{2}O$ por cada kilogramo de fibra de carbono producido.
@@ -331,8 +455,8 @@ cf.new_exchange(
 
 # %%
 ipcc = bd.Method(("IPCC",))
-factors = ipcc.load() # se cargan los factores de caracterizacion
-factors.append(((n2o.key), {"amount": 276.9})) # Se agrega una nueva sustancia
+factors = ipcc.load()  # se cargan los factores de caracterizacion
+factors.append(((n2o.key), {"amount": 276.9}))  # Se agrega una nueva sustancia
 ipcc.write(factors)
 
 # %%
@@ -363,11 +487,6 @@ print(f"El impacto aumento en: {(lca_nuevo.score - lca.score) * 100 / lca.score}
 # Brightway utiliza un template para leer y exportar bases de datos en formato excel. Es conveniente para distribuir versiones finales del inventario. No es muy bueno almacenando informacion anidad. No permite 'trackear' los cambios debido a que *.xlsx no es un formato de texto.
 
 # %%
-import bw2calc as bc
-import bw2data as bd
-import bw2io as bi
-from rich import print
-
 # Primero que nada, verifiquen que esten en el proyecto adecuado
 bd.projects.current
 
@@ -422,7 +541,7 @@ importador.match_database(
     fields=("name", "code", "unit", "location")
 )  # Conecta nodos del archivo excel
 importador.match_database(
-    "biosphere3", fields=("name", "unit", "categories")
+    "biosphere3", fields=("name", "categories")
 )  # Conecta nodos con la base de datos biosphere3
 importador.statistics()
 importador.write_excel()

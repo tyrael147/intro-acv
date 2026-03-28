@@ -1,0 +1,4 @@
+,code,database,id,location,name,type,unit
+0,ng,mi_base_de_datos,296270418941067264,NO,Nat Gas,processwithreferenceproduct,MJ
+2,CF,mi_base_de_datos,296270418878152704,CN,carbon fibre,processwithreferenceproduct,kilogram
+1,bici,mi_base_de_datos,296270418790072320,PE,produccion bici,processwithreferenceproduct,piece

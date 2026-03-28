@@ -1,0 +1,5 @@
+,target_id,target_database,target_code,target_name,target_reference_product,target_location,target_unit,target_type,source_id,source_database,source_code,source_name,source_product,source_location,source_unit,source_categories,edge_amount,edge_type
+0,296270418790072320,mi_base_de_datos,bici,produccion bici,,PE,piece,process,296270418878152704,mi_base_de_datos,CF,carbon fibre,,CN,kilogram,,2.5,technosphere
+1,296270418878152704,mi_base_de_datos,CF,carbon fibre,,CN,kilogram,process,296270418941067264,mi_base_de_datos,ng,Nat Gas,,NO,MJ,,237.0,technosphere
+2,296270418878152704,mi_base_de_datos,CF,carbon fibre,,CN,kilogram,process,296270424188141568,biosphere3,co2,Carbon Dioxide,,GLO,,air,26.6,biosphere
+3,296270418878152704,mi_base_de_datos,CF,carbon fibre,,CN,kilogram,process,296270478189805568,biosphere3,n2o,Nitrous oxide,,GLO,,air,0.23,biosphere
