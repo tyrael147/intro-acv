@@ -61,6 +61,7 @@ bio = bd.Database("biosphere3")
 # %% [markdown]
 # ### Explorando BAFU
 
+# %%
 bd.projects.set_current("proyecto_bafu")
 seleccionado = bafu_db.random() # Explora las actividades
 print("Proceso aleatorio seleccionado: ",seleccionado)
@@ -95,7 +96,8 @@ for exchange in seleccionado.technosphere():
 # La impresion realizada en la celda de arriba nos muestra la informacion necesaria para poder construir las matrices. Sin embargo, brightway nos permite manipular el `exchange` y acceder a su metadata.
 
 # %%
-# Seleccionamos el segundo `exchange`de la lista
+# Seleccionamos el segundo `exchange`de la list
+# a
 exchange = list(seleccionado.technosphere())[1]
 print(exchange.as_dict())
 
