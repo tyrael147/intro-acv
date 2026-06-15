@@ -121,9 +121,9 @@ bi.restore_project_directory(
 # %%
 # Seleccionamos el proyecto correspondiente y asignamos las bases de datos a cada variable
 bd.projects.set_current("proyecto_ei")
-ei = bd.Database("ecoinvent-3.9.1-cutoff")
+ei = bd.Database("ecoinvent-3.11-cutoff")
 # Set the current project
-bio = bd.Database("biosphere3")
+bio = bd.Database("ecoinvent-3.11-biosphere")
 
 # %%
 # Creamos una base de datos nueva para nuestro ejemplo
